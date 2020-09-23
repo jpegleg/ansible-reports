@@ -1,0 +1,23 @@
+---
+-
+  hosts: linux
+  tasks:
+    - name: get vars
+      template:
+        src: templates/dump_variables
+        dest: /tmp/ansible_variables
+
+    - name: fetch template
+      fetch:
+        src: /tmp/ansible_variables
+        dest: "captured_variables/{{ ansible_hostname }}"
+        flat: yes
+
+
+    - name: clean up
+      file:
+        name: /tmp/ansible_variables
+        state: absent
+
+
+...
