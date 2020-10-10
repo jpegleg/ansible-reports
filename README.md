@@ -15,7 +15,9 @@ ansible-playbook -u root -i ~/hosts.inventory facts.yml | tee ansible.facts.$(da
 Or use the wrapper utility in this repo:
 
 chmod +x ./runreports
+
 sudo cp runreports /usr/local/bin/runreports
+
 runreports
 
 Note that this report gathers a lot of information: every running process, open file, network connection, installed package, and more.
