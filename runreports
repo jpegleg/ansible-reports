@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 cd ~
+find ~ -name "ansible.report.*gz" -mtime +25 -exec rm -f {} \;
+find ~ -name "ansible.report.*txt" -mtime +5 -exec gzip -9 {} \;
 touch ansible.report.current.txt
 touch ansible.report.last.txt
 cp ansible.report.current.txt ansible.report.last.txt
