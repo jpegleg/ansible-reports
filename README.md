@@ -20,6 +20,20 @@ sudo cp runreports /usr/local/bin/runreports
 
 runreports
 
+
+
+The runreports is simply these steps:
+
+cd ~
+touch ansible.report.current.txt
+touch ansible.report.last.txt
+cp ansible.report.current.txt ansible.report.last.txt
+stamp=$(date +%Y%m%d%H%M%S%N)
+ansible-playbook -u root -i ~/hosts.inventory ~/report.yml  | tee ansible.report."$stamp".txt
+cp ansible.report."$stamp".txt ansible.report.current.txt
+
+
+
 Note that this report gathers a lot of information: every running process, open file, network connection, installed package, and more.
 If you need to do a full review, there are two potentially disruptive elements that have been intentionally left out of report.yml:
 complete memory dump (including kernel memory!), and complete disk clone (dd)
