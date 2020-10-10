@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+touch ansible.report.current.txt
+touch ansible.report.last.txt
+cp ansible.report.current.txt ansible.report.last.txt
+stamp=$(date +%Y%m%d%H%M%S%N)
+ansible-playbook -u root -i ~/hosts.inventory ~/report.yml  | tee ansible.report."$stamp".txt
+cp ansible.report."$stamp".txt ansible.report.current.txt
