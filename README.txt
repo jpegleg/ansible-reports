@@ -22,15 +22,18 @@ runreports
 
 
 
-The runreports is simply these steps:
+The runreports is simply these steps (maintains disk space at 30 days of these reports in ~):
 
 cd ~
+find ~ -name "ansible.report.*gz" -mtime +25 -exec rm -f {} \;
+find ~ -name "ansible.report.*txt" -mtime +5 -exec gzip -9 {} \;
 touch ansible.report.current.txt
 touch ansible.report.last.txt
 cp ansible.report.current.txt ansible.report.last.txt
 stamp=$(date +%Y%m%d%H%M%S%N)
 ansible-playbook -u root -i ~/hosts.inventory ~/report.yml  | tee ansible.report."$stamp".txt
 cp ansible.report."$stamp".txt ansible.report.current.txt
+
 
 
 
