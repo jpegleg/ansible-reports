@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+cd ~
 touch ansible.report.current.txt
 touch ansible.report.last.txt
 cp ansible.report.current.txt ansible.report.last.txt
