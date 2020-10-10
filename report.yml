@@ -9,11 +9,41 @@
 
     - debug: var=uname.stdout_lines
 
+    - name: time collect
+      shell: chronyc activity || ntpstat; chronyc sources || ntpq -p; date
+      register: timestatus
+
+    - debug: var=timestatus.stdout_lines
+
+    - name: disk
+      shell: df -h; df -i; fdisk -l
+      register: diskstatus
+
+    - debug: var=diskstatus.stdout_lines
+
     - name: hashes
       shell: sha256sum /etc/shadow /etc/sudoers /etc/ssh/sshd_config
       register: hashes
 
     - debug: var=hashes.stdout_lines
+
+    - name: process list
+      shell: ps uaxwww
+      register: psstatus
+
+    - debug: var=psstatus.stdout_lines
+
+    - name: open files
+      shell: lsof
+      register: lsofstatus
+
+    - debug: var=lsofstatus.stdout_lines
+
+    - name: ss -tanu
+      shell: ss -tanu || netstat -tanu
+      register: netstatus
+
+    - debug: var=netstatus.stdout_lines
 
 
 -
@@ -55,7 +85,5 @@
       register: debhist
 
     - debug: var=debhist.stdout_lines
-
-
 
 ...
